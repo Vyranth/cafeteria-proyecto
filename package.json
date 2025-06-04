@@ -1,0 +1,20 @@
+{
+  "name": "cafeteria-proyecto",
+  "version": "1.0.0",
+  "description": "Repo para la estructura correcta de la pagina web de la cafeteria",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vyranth/cafeter-a-proyecto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vyranth/cafeter-a-proyecto/issues"
+  },
+  "homepage": "https://github.com/Vyranth/cafeter-a-proyecto#readme"
+}
