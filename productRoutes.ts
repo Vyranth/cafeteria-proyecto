@@ -1,17 +1,15 @@
-// productRoutes.js
-
-const express = require('express');
-const router = express.Router();
-
-const {
+// productRoutes.ts
+import { Router } from 'express';
+import {
   getProducts,
   getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
-} = require('./productController');
+} from './productController';
 
-// CRUD de productos en /api/products
+const router = Router();
+
 router.route('/')
   .get(getProducts)
   .post(createProduct);
@@ -21,4 +19,4 @@ router.route('/:id')
   .put(updateProduct)
   .delete(deleteProduct);
 
-module.exports = router;
+export default router;

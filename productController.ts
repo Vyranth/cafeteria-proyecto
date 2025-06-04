@@ -1,20 +1,24 @@
-// productController.js
+// productController.ts
+import { Request, Response } from 'express';
+import Product, { IProduct } from './Product';
 
-const Product = require('./Product');
-
-// Obtener todos los productos
-const getProducts = async (req, res) => {
+// @desc   Obtener todos los productos
+// @route  GET /api/products
+// @access Pública
+export const getProducts = async (req: Request, res: Response): Promise<void> => {
   try {
-    const products = await Product.find();
+    const products: IProduct[] = await Product.find();
     res.json(products);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: 'Error al obtener la lista de productos' });
   }
 };
 
-// Obtener producto por ID
-const getProductById = async (req, res) => {
+// @desc   Obtener producto por ID
+// @route  GET /api/products/:id
+// @access Pública
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -22,27 +26,37 @@ const getProductById = async (req, res) => {
     } else {
       res.status(404).json({ message: 'Producto no encontrado' });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: 'Error al obtener el producto' });
   }
 };
 
-// Crear un nuevo producto
-const createProduct = async (req, res) => {
+// @desc   Crear un nuevo producto
+// @route  POST /api/products
+// @access Pública (en práctica: admin)
+export const createProduct = async (req: Request, res: Response): Promise<void> => {
   const { name, description, price, category, imageUrl } = req.body;
   try {
-    const product = new Product({ name, description, price, category, imageUrl });
+    const product = new Product({
+      name,
+      description,
+      price,
+      category,
+      imageUrl,
+    });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: 'Error al crear el producto' });
   }
 };
 
-// Actualizar un producto
-const updateProduct = async (req, res) => {
+// @desc   Actualizar un producto
+// @route  PUT /api/products/:id
+// @access Pública (en práctica: admin)
+export const updateProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -57,14 +71,16 @@ const updateProduct = async (req, res) => {
     } else {
       res.status(404).json({ message: 'Producto no encontrado' });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: 'Error al actualizar el producto' });
   }
 };
 
-// Eliminar un producto
-const deleteProduct = async (req, res) => {
+// @desc   Eliminar un producto
+// @route  DELETE /api/products/:id
+// @access Pública (en práctica: admin)
+export const deleteProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -73,16 +89,8 @@ const deleteProduct = async (req, res) => {
     } else {
       res.status(404).json({ message: 'Producto no encontrado' });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: 'Error al eliminar el producto' });
   }
-};
-
-module.exports = {
-  getProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
 };
